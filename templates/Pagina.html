@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Convolución con PyCUDA</title>
+    <link rel="stylesheet" href="../static/edicion.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Convolución de Imágenes usando PyCUDA</h1>
+        
+        <div class="three-column-grid">
+            <!-- Columna de Vista Previa -->
+            <div class="card preview-card">
+                <h2>Vista Previa</h2>
+                <canvas id="previewCanvas" width="400" height="300"></canvas>
+                <input type="file" id="uploadInput" class="upload-btn" accept="image/*" onchange="previewImage(event)">
+            </div>
+            
+            <!-- Columna de Opciones -->
+            <div class="card options-card">
+                <h2>Opciones de Procesamiento</h2> <br> <br>
+                <div class="options-section">
+                    <label for="imageSelect">Selecciona el Filtro:</label>
+                    <select id="imageSelect">
+                        <option value="sobel">Filtro Sobel</option>
+                        <option value="highpass">Filtro High Pass</option>
+                        <option value="erosion">Filtro Erosion</option>
+                    </select>
+            
+                    <div class="mask-options">
+                        <label><input type="radio" name="mask" value="9x9" checked> Máscara de 9x9</label>
+                        <label><input type="radio" name="mask" value="13x13"> Máscara de 13x13</label>
+                        <label><input type="radio" name="mask" value="21x21"> Máscara de 21x21</label>
+                    </div>
+            
+                    <label for="threadsPerBlock">Número de hilos por bloque:</label>
+                    <input id="threadsPerBlock" type="text" inputmode="numeric" placeholder="Ej. 1024">
+                    
+                    <button onclick="procesarImagen()">Procesar</button>
+                </div>
+            </div>
+            
+            <!-- Columna de Resultado -->
+            <div class="card result-card">
+                <h2>Resultado</h2>  <br>
+                <canvas id="processedCanvas" width="400" height="300"></canvas>
+                <div id="initialMessage" class="info-box">
+                    <p>Aún no ha procesado ninguna imagen.</p>
+                </div>
+                <div id="infoBox" class="info-box" style="display: none;">
+                    <h3>Información de Procesamiento</h3>
+                    <p><strong>Número de bloques:</strong> <span id="blockCount">N/A</span></p>
+                    <p><strong>Número de hilos:</strong> <span id="threadCount">N/A</span></p>
+                    <p><strong>Tiempo de procesamiento:</strong> <span id="processingTime">N/A</span></p>
+                    <p><strong>Máscara utilizada:</strong> <span id="maskUsed">N/A</span></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../static/codigo.js"></script>
+</body>
+</html>

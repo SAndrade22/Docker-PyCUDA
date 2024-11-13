@@ -1,0 +1,6 @@
+Flask
+pycuda
+numpy
+Pillow
+numpy==1.22.0 
+scipy==1.11.4
